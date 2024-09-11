@@ -4,15 +4,19 @@ using namespace std;
 
 typedef long long ll;
 
+bool check(ll mid, ll a, ll b, ll n){
+    return (mid / a) * (mid / b) >= n;
+}
+
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);cout.tie(NULL);
-    int n, a, b;
+    ll n, a, b;
     cin >> a >> b >> n;
-    int left = 0, right = max(a, b) * n, res;
+    ll left = 0, right = max(a, b) * n, res = b * n;
     while (left <= right){
-        int mid = (right + left) / 2;
-        if ((mid / a) * (mid / b) >= n){
+        ll mid = (right + left) / 2;
+        if (check(mid, a, b, n)){
             res = mid;
             right = mid - 1;
         }

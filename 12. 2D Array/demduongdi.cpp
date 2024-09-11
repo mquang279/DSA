@@ -4,31 +4,27 @@ using namespace std;
 
 typedef long long ll;
 
-int res;
 int n, m;
+ll res;
 int a[200][200];
-
-void loang(int x, int y){
-    if (x >= n || y >= m || a[x][y] != 1) return;
-    if (x == n - 1 && y == m - 1){
-        res++;
-        return;
-    }
-    a[x][y] = 0;
-    loang(x + 1, y);
-    loang(x, y + 1);
-}
+ll b[200][200];
 
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);cout.tie(NULL);
     cin >> n >> m;
-    for (int i = 0; i < n; i++){
-        for (int j = 0; j < m; j++){
+    for (int i = 1; i <= n; i++){
+        for (int j = 1; j <= m; j++){
             cin >> a[i][j];
         }
     }
-    loang(0, 0);
-    cout << res;
+    b[1][1] = 1;
+    for (int i = 1; i <= n; i++){
+        for (int j = 1; j <= m; j++){
+            if (a[i - 1][j] == 1) b[i][j] += b[i - 1][j];
+            if (a[i][j - 1] == 1) b[i][j] += b[i][j - 1];
+        }
+    }
+    cout << b[n][m];
     return 0;
 }

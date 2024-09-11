@@ -4,9 +4,8 @@ using namespace std;
 
 typedef long long ll;
 
-bool check(int mid, int x, int y, int n){
-    int tmp = (mid / x) + (mid / y);
-    return tmp >= n;
+bool check(ll mid, int n, int x, int y){
+    return (mid / x + mid / y) >= n;
 }
 
 int main(){
@@ -14,10 +13,11 @@ int main(){
     cin.tie(NULL);cout.tie(NULL);
     int n, x, y;
     cin >> n >> x >> y;
-    int left = 0, right = max(x, y) * (n - 1), res;
+    n--;
+    ll left = 0, right = max(x, y) * n, res;
     while (left <= right){
-        int mid = (right + left) / 2;
-        if (check(mid, x, y, n - 1)){
+        ll mid = (right + left) / 2;
+        if (check(mid, n, x, y)){
             res = mid;
             right = mid - 1;
         }
