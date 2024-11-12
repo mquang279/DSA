@@ -9,6 +9,7 @@ ll targetSum, sum;
 int a[50];
 
 void Try(int i, int cnt){
+    if (cnt > res) return;
     for (int j = i; j < n; j++){
         if (sum + a[j] <= targetSum){
             sum += a[j];

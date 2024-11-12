@@ -40,9 +40,6 @@ bool isPalindrome(string s){
 
 void Try(int i){
     if (i == s.length()){
-        for (string x : v){
-            if (!isPalindrome(x)) return;
-        }
         for (string x : v) cout << x << " ";
         cout << endl;
         return;
