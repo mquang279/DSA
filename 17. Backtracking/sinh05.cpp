@@ -4,18 +4,18 @@ using namespace std;
 
 typedef long long ll;
 
-int a[25];
 int n, k;
+int a[100];
 
-void Try(int pos, int start) {
-    if (pos == k - 1) {
-        for (int i = 0; i < k - 1; i++) cout << a[i];
+void Try(int i, int start){
+    if (i == k){
+        for (int j = 0; j < k; j++) cout << a[j];
         cout << endl;
-    } else {
-        for (int i = start; i <= n; i++) {
-            a[pos] = i;
-            Try(pos + 1, i + 1);
-        }
+        return;
+    }
+    for (int j = start; j <= n; j++){
+        a[i] = j;
+        Try(i + 1, j + 1);
     }
 }
 

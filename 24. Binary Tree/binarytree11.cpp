@@ -13,9 +13,8 @@ int findRoot(int n, int root, int in[]) {
 
 void postorder(int n, int pre[], int in[]) {
     int root = pre[0];
-    int pos = findRoot(root);
-    postorder(pre + 1, in);
-
+    int pos = findRoot(n, root, in);
+    
 
 }
 
