@@ -4,43 +4,51 @@ using namespace std;
 
 typedef long long ll;
 
-void addZero(string &num) {
-    while (num.length() < 6) {
-        num = '0' + num;
+int n, m;
+int a[1000][1000];
+int dx[8] = {-1, -1, -1, 0, 0, 1, 1, 1};
+int dy[8] = {-1, 0, 1, -1, 1, -1, 0, 1};
+bool visited[1000][1000];
+
+bool isValid(int x, int y) {
+    for (int i = 0; i < 8; i++) {
+        int newX = x + dx[i];
+        int newY = y + dy[i];
+        if (newX >= 0 && newY >= 0 && newX < n && newY < m && a[newX][newY] > a[x][y]) return false;
     }
+    return true;
+}
+
+bool floodFill(int x, int y) {
+    visited[x][y] = true;
+    bool check = true;
+    for (int i = 0; i < 8; i++) {
+        int newX = x + dx[i];
+        int newY = y + dy[i];
+        if (newX >= 0 && newY >= 0 && newX < n && newY < m && !visited[newX][newY] && a[newX][newY] == a[x][y]) {
+            if (!isValid(newX, newY) || !floodFill(newX, newY)) check = false;
+        }
+    }
+    return check;
 }
 
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);cout.tie(NULL);
-    string userNum;
-    cin >> userNum;
-    addZero(userNum);
-    srand(time(0));
-    int randomNum = rand() % 1000000;
-    string lotteryNum = to_string(randomNum);
-    addZero(lotteryNum);
-    cout << lotteryNum << endl;
-    int countDigits = 0;
-    for (int i = 5; i >= 0; i--) {
-        if (userNum[i] == lotteryNum[i]) {
-            countDigits++;
-        } else {
-            break;
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            cin >> a[i][j];
         }
     }
-    if (countDigits == 6) {
-        cout << "Trung giai dac biet 3 ty";
-    } else if (countDigits == 5) {
-        cout << "Trung giai nhat 200 trieu";
-    } else if (countDigits == 4) {
-        cout << "Trung giai nhi 100 trieu";
-    } else if (countDigits == 3) {
-        cout << "Trung giai ba 10 trieu";
-    } else if (countDigits == 2) {
-        cout << "Trung giai khuyen khich 500k";
-    } else {
-        cout << "Khong trung giai";
+    int res = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (!visited[i][j] && isValid(i, j) && floodFill(i, j)) {
+                res++;
+            }
+        }
     }
+    cout << res;
     return 0;
 }
